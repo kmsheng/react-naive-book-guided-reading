@@ -12,16 +12,24 @@ class LikeButton {
     };
   }
 
+  setState(state) {
+    const oldEl = this.el;
+    this.state = state;
+    this.el = this.render();
+    if (this.onStateChange) {
+      this.onStateChange(oldEl, this.el);
+    }
+  }
+
   changeLikeText() {
-    const likeText = this.el.querySelector('.like-text');
-    this.state.isLiked = ! this.state.isLiked;
-    likeText.innerHTML = this.state.isLiked ? '取消' : '点赞';
+    this.setState({isLiked: ! this.state.isLiked});
   }
 
   render() {
+    const text = this.state.isLiked ? '取消' : '點贊';
     this.el = createDOMFromString(`
       <button class="like-btn">
-        <span class="like-text">点赞</span>
+        <span class="like-text">${text}</span>
         <span>👍</span>
       </button>
     `);
@@ -31,8 +39,12 @@ class LikeButton {
 }
 
 const wrapper = document.querySelector('.wrapper');
-const likeButton1 = new LikeButton();
-wrapper.appendChild(likeButton1.render());
+const likeButton = new LikeButton();
+wrapper.appendChild(likeButton.render());
 
-const likeButton2 = new LikeButton();
-wrapper.appendChild(likeButton2.render());
+likeButton.onStateChange = (oldEl, newEl) => {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+  // https://codepen.io/kmsheng/pen/xdNrOy
+  wrapper.insertBefore(newEl, oldEl);
+  wrapper.removeChild(oldEl);
+};
