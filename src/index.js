@@ -1,50 +1,63 @@
+const mount = (component, wrapper) => {
+  wrapper.appendChild(component._renderDOM());
+  component.onStateChange = (oldEl, newEl) => {
+    wrapper.insertBefore(newEl, oldEl);
+    wrapper.removeChild(oldEl);
+  };
+};
+
 const createDOMFromString = (domString) => {
   const div = document.createElement('div');
   div.innerHTML = domString;
   return div;
 }
 
-class LikeButton {
+class Component {
 
-  constructor() {
-    this.state = {
-      isLiked: false
-    };
+  constructor(props = {}) {
+    this.props = props;
   }
 
   setState(state) {
     const oldEl = this.el;
     this.state = state;
-    this.el = this.render();
+    this.el = this._renderDOM();
     if (this.onStateChange) {
       this.onStateChange(oldEl, this.el);
     }
   }
 
-  changeLikeText() {
-    this.setState({isLiked: ! this.state.isLiked});
-  }
-
-  render() {
-    const text = this.state.isLiked ? '取消' : '點贊';
-    this.el = createDOMFromString(`
-      <button class="like-btn">
-        <span class="like-text">${text}</span>
-        <span>👍</span>
-      </button>
-    `);
-    this.el.addEventListener('click', this.changeLikeText.bind(this), false);
+  _renderDOM() {
+    this.el = createDOMFromString(this.render());
+    if (this.onClick) {
+      this.el.addEventListener('click', this.onClick.bind(this), false);
+    }
     return this.el;
   }
 }
 
-const wrapper = document.querySelector('.wrapper');
-const likeButton = new LikeButton();
-wrapper.appendChild(likeButton.render());
+class LikeButton extends Component {
 
-likeButton.onStateChange = (oldEl, newEl) => {
-  // https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
-  // https://codepen.io/kmsheng/pen/xdNrOy
-  wrapper.insertBefore(newEl, oldEl);
-  wrapper.removeChild(oldEl);
-};
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLiked: false
+    };
+  }
+
+  onClick() {
+    this.setState({isLiked: ! this.state.isLiked});
+  }
+
+  render() {
+    return `
+      <button class="like-btn" style="background-color: ${this.props.bgColor}">
+        <span class="like-text">${this.state.isLiked ? '取消' : '點讚'}</span>
+        <span>👍</span>
+      </button>
+    `;
+  }
+}
+
+const wrapper = document.querySelector('.wrapper');
+mount(new LikeButton({bgColor: 'red'}), wrapper);
