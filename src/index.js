@@ -12,8 +12,15 @@ class CommentApp extends Component {
   }
 
   handleSubmit = (event) => {
+
     event.preventDefault();
-    const newComment = this.refs.textarea.value;
+    const newComment = this.refs.textarea.value.replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+      .replace(/`([\S\s]+?)`/g, '<code>$1</code>');
+
     if (newComment) {
       const {comments} = this.state;
       this.setState({comments: [...comments, newComment]});
