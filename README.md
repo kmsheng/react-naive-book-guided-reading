@@ -1,2 +1,14 @@
 # React Naive Book Guided Reading
-Gudided reading for http://huziketang.com/books/react/
+Guided reading for http://huziketang.com/books/react/
+
+## Installation
+
+```
+npm i
+```
+
+## Development
+
+```
+npm start
+```
