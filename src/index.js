@@ -1,21 +1,43 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import PropTypes from 'prop-types';
 
-class Index extends Component {
+export class Breadcrumb extends Component {
 
-  constructor(props) {
-    super(props);
-    this.input = null;
-  }
+  static propTypes = {
+    children: PropTypes.any.isRequired
+  };
 
-  componentDidMount() {
-    this.input.focus();
+  renderListContent() {
+
+    const {children} = this.props;
+
+    console.log('typeof children', typeof children);
+
+    if ('function' === typeof children.map) {
+      return children.map((child, index) => {
+        return <li key={`breadcrumb-item-${index}`}>{child}</li>;
+      });
+    }
+    return <li key="breadcrumb-item">{children}</li>;
   }
 
   render() {
+    return <ul className="breadcrumb">{this.renderListContent()}</ul>;
+  }
+}
+
+class Index extends Component {
+
+  render() {
     return (
-      <input ref={(input) => this.input = input} type="text" />
+      <div>
+        <Breadcrumb>
+          <a href="https://www.google.com">google</a>
+          <a href="https://www.facebook.com">facebook</a>
+        </Breadcrumb>
+      </div>
     )
   };
 }
