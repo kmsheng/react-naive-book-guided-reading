@@ -6,12 +6,12 @@ class Header extends Component {
   render() {
     return (
       createElement(
-        "div",
+        'div',
         null,
         createElement(
-          "h1",
+          'h1',
           {className: 'title'},
-          "React 小書"
+          'React 小書'
         )
       )
     );
