@@ -1,0 +1,14 @@
+.breadcrumb li {
+  display: inline-block;
+}
+.breadcrumb li:after {
+  content: '/';
+  margin-right: 7px;
+  margin-left: 7px;
+}
+.breadcrumb li:last-child {
+  margin-right: 0;
+}
+.breadcrumb li:last-child:after {
+  content: ''
+}
