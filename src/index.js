@@ -4,13 +4,18 @@ import './index.css';
 
 class Index extends Component {
 
+  constructor(props) {
+    super(props);
+    this.input = null;
+  }
+
   componentDidMount() {
-    this.refs.myInput.focus();
+    this.input.focus();
   }
 
   render() {
     return (
-      <input ref="myInput" type="text" />
+      <input ref={(input) => this.input = input} type="text" />
     )
   };
 }
