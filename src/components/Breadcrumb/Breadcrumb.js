@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import './Breadcrumb.css';
 
 export default class Breadcrumb extends Component {
 
