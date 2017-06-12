@@ -22,8 +22,8 @@ class LikeButton extends Component {
     const {thumbUpCount} = this.props;
     const {isLiked} = this.state;
     return (
-      <button class="like-btn" onClick={this.handleButtonClick}>
-        <span class="like-text">{isLiked ? '取消' : '點讚'}</span>
+      <button className="like-btn" onClick={this.handleButtonClick}>
+        <span className="like-text">{isLiked ? '取消' : '點讚'}</span>
         <span>{'👍'.repeat(thumbUpCount)}</span>
       </button>
     );
