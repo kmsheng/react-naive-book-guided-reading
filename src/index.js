@@ -16,6 +16,35 @@ class LikeButton extends Component {
     };
   }
 
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentDidMount', nextProps);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate', nextProps, nextState);
+    return true;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('componentWillUpdate', nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
   handleButtonClick = () => this.setState((prevState) => ({isLiked: ! prevState.isLiked}));
 
   render() {
@@ -34,17 +63,25 @@ class Index extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {thumbUpCount: 1};
+    this.state = {
+      thumbUpCount: 1,
+      showContent: true
+    };
   }
 
-  handleIncreaseThumbUpButtonClick = () => this.setState((prevState) => ({thumbUpCount: prevState.thumbUpCount + 1}));
+  handleIncreaseThumbUpButtonClick = () => this.setState(({thumbUpCount}) => ({thumbUpCount: thumbUpCount + 1}));
+
+  toggleContent = () => this.setState(({showContent}) => ({showContent: ! showContent}));
 
   render() {
-    const {thumbUpCount} = this.state;
+    const {thumbUpCount, showContent} = this.state;
     return (
       <div>
-        <button onClick={this.handleIncreaseThumbUpButtonClick}>Incease Thumb Up Count</button>
-        <LikeButton thumbUpCount={thumbUpCount} />
+        <button onClick={this.toggleContent}>toggle content</button>
+        {showContent && <div>
+          <button onClick={this.handleIncreaseThumbUpButtonClick}>Incease Thumb Up Count</button>
+          <LikeButton thumbUpCount={thumbUpCount} />
+        </div>}
       </div>
     )
   };
