@@ -2,20 +2,55 @@ import React, {Component, createElement} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Header extends Component {
-  render() {
+class Title extends Component {
+  render () {
     return (
-      createElement(
-        "div",
-        null,
-        createElement(
-          "h1",
-          {className: 'title'},
-          "React 小書"
-        )
-      )
-    );
+      <h1>React 小书</h1>
+    )
   }
 }
 
-ReactDOM.render(<Header />, document.getElementById('root'));
+class Header extends Component {
+  render () {
+    return (
+    <div>
+      <Title />
+      <h2>This is Header</h2>
+    </div>
+    )
+  }
+}
+
+class Main extends Component {
+  render () {
+    return (
+    <div>
+      <h2>This is main content</h2>
+    </div>
+    )
+  }
+}
+
+class Footer extends Component {
+  render () {
+    return (
+    <div>
+      <h2>This is footer</h2>
+    </div>
+    )
+  }
+}
+
+class Index extends Component {
+  render () {
+    return (
+      <div>
+        <Header />
+        <Main />
+        <Footer />
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<Index />, document.getElementById('root'));
