@@ -1,45 +1,45 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import PropTypes from 'prop-types';
 
-export class Breadcrumb extends Component {
+class CommentApp extends Component {
 
-  static propTypes = {
-    children: PropTypes.any.isRequired
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: []
+    };
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const newComment = this.refs.textarea.value;
+    if (newComment) {
+      const {comments} = this.state;
+      this.setState({comments: [...comments, newComment]});
+      this.refs.textarea.value = '';
+    }
   };
 
-  renderListContent() {
-
-    const {children} = this.props;
-
-    console.log('typeof children', typeof children);
-
-    if ('function' === typeof children.map) {
-      return children.map((child, index) => {
-        return <li key={`breadcrumb-item-${index}`}>{child}</li>;
-      });
-    }
-    return <li key="breadcrumb-item">{children}</li>;
+  renderComments() {
+    return this.state.comments.map((comment, index) => {
+      return (
+        <div key={`comment-row-${index}`} dangerouslySetInnerHTML={{__html: comment}} />
+      );
+    });
   }
-
-  render() {
-    return <ul className="breadcrumb">{this.renderListContent()}</ul>;
-  }
-}
-
-class Index extends Component {
 
   render() {
     return (
       <div>
-        <Breadcrumb>
-          <a href="https://www.google.com">google</a>
-          <a href="https://www.facebook.com">facebook</a>
-        </Breadcrumb>
+        <form onSubmit={this.handleSubmit}>
+          <textarea ref="textarea" placeholder="leave your comment..." />
+          <button type="submit">submit</button>
+        </form>
+        {this.renderComments()}
       </div>
     )
   };
 }
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+ReactDOM.render(<CommentApp />, document.getElementById('root'));
