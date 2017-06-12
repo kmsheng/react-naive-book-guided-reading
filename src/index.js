@@ -1,11 +1,18 @@
-import React, {Component, createElement} from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import './index.css';
 
 class Title extends Component {
+
+  static contextTypes = {
+    color: PropTypes.string
+  };
+
   render () {
+    const {color} = this.context;
     return (
-      <h1>React 小书</h1>
+      <h1 style={{border: `1px solid ${color}`}}>React 小书</h1>
     );
   }
 }
@@ -42,6 +49,15 @@ class Footer extends Component {
 }
 
 class Index extends Component {
+
+  static childContextTypes = {
+    color: PropTypes.string
+  };
+
+  getChildContext() {
+    return {color: 'pink'};
+  }
+
   render () {
     return (
       <div>
