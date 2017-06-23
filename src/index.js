@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import './index.css';
+const pad = document.getElementById('pad');
+const btnAdd = document.getElementById('btn-add');
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+let counterValue = 0;
+
+btnAdd.addEventListener('click', () => {
+  counterValue += 1;
+  pad.innerHTML = counterValue;
+});
