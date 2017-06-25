@@ -2,7 +2,7 @@ import {createStore} from 'redux';
 import rootReducer from './redux/modules/rootReducer';
 import {ADD} from './redux/modules/counter';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, {counter: 10});
 
 function render() {
   const state = store.getState();
