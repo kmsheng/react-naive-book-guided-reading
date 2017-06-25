@@ -11,3 +11,9 @@ export default function counterReducer(state = initialState, action) {
       return state;
   }
 }
+
+export function add() {
+  return {
+    type: ADD
+  };
+}

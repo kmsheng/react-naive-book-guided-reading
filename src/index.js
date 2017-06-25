@@ -1,6 +1,6 @@
 import {createStore} from 'redux';
 import rootReducer from './redux/modules/rootReducer';
-import {ADD} from './redux/modules/counter';
+import {add} from './redux/modules/counter';
 
 const store = createStore(rootReducer, {counter: 10});
 
@@ -15,7 +15,7 @@ const pad = document.getElementById('pad');
 const btnAdd = document.getElementById('btn-add');
 
 btnAdd.addEventListener('click', () => {
-  store.dispatch({type: ADD});
+  store.dispatch(add());
 });
 
 render();
