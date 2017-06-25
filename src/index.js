@@ -13,6 +13,7 @@ const btnAdd = document.getElementById('btn-add');
 function render() {
   const state = store.getState();
   pad.innerHTML = state.counter;
+  heading.innerHTML = state.main.projectName;
 }
 
 store.subscribe(render);
