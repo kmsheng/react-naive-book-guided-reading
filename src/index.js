@@ -13,6 +13,7 @@ function render() {
 
 store.subscribe(render);
 
+const heading = document.getElementById('heading');
 const pad = document.getElementById('pad');
 const btnAdd = document.getElementById('btn-add');
 
