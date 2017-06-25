@@ -1,4 +1,4 @@
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
 
 const initialState = 0;
 const ADD = 'react-naive-book-guided-reading/counter/ADD';
@@ -12,11 +12,15 @@ function counterReducer(state = initialState, action) {
   }
 }
 
-const store = createStore(counterReducer);
+const rootReducer = combineReducers({
+  counter: counterReducer
+});
+
+const store = createStore(rootReducer);
 
 store.subscribe(() => {
-  const value = store.getState();
-  pad.innerHTML = value;
+  const state = store.getState();
+  pad.innerHTML = state.counter;
 });
 
 const pad = document.getElementById('pad');
