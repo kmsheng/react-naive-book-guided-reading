@@ -1,23 +1,8 @@
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './redux/modules/rootReducer';
 import {add} from './redux/modules/counter';
-
-const logger = (store) => (next) => (action) => {
-  console.log('logger called');
-  console.log('dispatching', action);
-  const result = next(action);
-  console.log('next state', store.getState());
-  return result;
-};
-
-const actions = {};
-
-const actionRecorder = (store) => (next) => (action) => {
-  console.log('actionRecorder called');
-  actions[action.type] = true;
-  console.log('actions', actions);
-  return next(action);
-};
+import logger from './redux/middlewares/logger';
+import actionRecorder from './redux/middlewares/actionRecorder';
 
 const store = createStore(rootReducer, {counter: 10}, applyMiddleware(logger, actionRecorder));
 
