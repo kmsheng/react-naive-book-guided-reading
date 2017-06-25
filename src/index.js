@@ -4,10 +4,12 @@ import {ADD} from './redux/modules/counter';
 
 const store = createStore(rootReducer);
 
-store.subscribe(() => {
+function render() {
   const state = store.getState();
   pad.innerHTML = state.counter;
-});
+}
+
+store.subscribe(render);
 
 const pad = document.getElementById('pad');
 const btnAdd = document.getElementById('btn-add');
@@ -15,3 +17,5 @@ const btnAdd = document.getElementById('btn-add');
 btnAdd.addEventListener('click', () => {
   store.dispatch({type: ADD});
 });
+
+render();
